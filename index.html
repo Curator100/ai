@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grim Encyclopedia</title>
+    <style>
+        body {
+            font-family: 'Verdana', sans-serif;
+            margin: 20px;
+            background: #1a1a1a;
+            color: #909090;
+        }
+        #chat-container {
+            background: #0d0d0d;
+            padding: 20px;
+            min-height: 300px;
+            border: 1px solid #333;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        .message {
+            margin: 15px;
+            padding: 12px;
+            border-radius: 3px;
+            position: relative;
+        }
+        .user-message {
+            background: #262626;
+            margin-left: 60px;
+            border-left: 3px solid #4a4a4a;
+        }
+        .bot-message {
+            background: #1f1f1f;
+            margin-right: 60px;
+            border-right: 3px solid #4a4a4a;
+        }
+        .bot-message::after {
+            content: "☠️";
+            position: absolute;
+            right: -40px;
+            top: 5px;
+        }
+        #input-container {
+            margin-top: 20px;
+        }
+        input {
+            width: 70%;
+            padding: 12px;
+            background: #333;
+            border: 1px solid #404040;
+            color: #808080;
+            font-style: italic;
+        }
+        button {
+            padding: 12px 24px;
+            background: #4a4a4a;
+            color: #666;
+            border: 1px solid #595959;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container"></div>
+    <div id="input-container">
+        <input type="text" id="user-input" placeholder="Ask your meaningless question..." autofocus>
+        <button onclick="sendMessage()">Submit</button>
+    </div>
+
+    <script src="https://js.puter.com/v2/"></script>
+    <script>
+        const chatContainer = document.getElementById('chat-container');
+        const userInput = document.getElementById('user-input');
+
+        addMessage("📚 Welcome to Existential Reference. Facts served with existential dread.", false);
+
+        function addMessage(message, isUser = false) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = isUser ? 'user-message' : 'bot-message';
+            msgDiv.innerHTML = message.replace(/\n/g, '<br>');
+            chatContainer.appendChild(msgDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const question = userInput.value.trim();
+            if (!question) return;
+
+            addMessage(question, true);
+            userInput.value = '';
+            
+            try {
+                const prompt = `${question} [Answer in 10-300 words. First give accurate fact, then add depressing perspective. Format: "Fact: ... However, ..."]`;
+                const response = await puter.ai.chat(prompt);
+                
+                let cleanResponse = typeof response === 'object' ? 
+                    response.message?.content : 
+                    response;
+
+                // Adaptive word management
+                const wordCount = cleanResponse.split(' ').length;
+                let processedResponse = cleanResponse;
+                
+                if (wordCount > 300) {
+                    const truncated = cleanResponse.split(' ').slice(0, 300).join(' ');
+                    processedResponse = `${truncated}... (like all things, this answer was inevitably cut short)`;
+                }
+
+                // Add existential garnish
+                const depressiveFlourishes = [
+                    " But does it matter in the cosmic scale?",
+                    " Not that this knowledge will improve your life.",
+                    " Another fact to clutter your mortal mind.",
+                    " Congratulations - you're slightly more informed about our meaningless existence.",
+                    " File this under 'things that won't prevent your eventual death'."
+                ];
+
+                if (!processedResponse.includes('However')) {
+                    processedResponse += depressiveFlourishes[Math.floor(Math.random() * depressiveFlourishes.length)];
+                }
+
+                addMessage(processedResponse);
+
+            } catch (error) {
+                addMessage("💀 The universe remains indifferent to your query. (API Error)");
+            }
+        }
+
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+    </script>
+</body>
+</html>
