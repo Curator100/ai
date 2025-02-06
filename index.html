@@ -61,7 +61,7 @@
 <body>
     <div id="chat-container"></div>
     <div id="input-container">
-        <input type="text" id="user-input" placeholder="Ask your meaningless question..." autofocus>
+        <input type="text" id="user-input" placeholder="Ask your sexist questions..." autofocus>
         <button onclick="sendMessage()">Submit</button>
     </div>
 
@@ -70,7 +70,7 @@
         const chatContainer = document.getElementById('chat-container');
         const userInput = document.getElementById('user-input');
 
-        addMessage("📚 Welcome to Existential Reference. Facts served with existential dread.", false);
+        addMessage("📚 Welcome to Sex club. Facts served with big titty.", false);
 
         function addMessage(message, isUser = false) {
             const msgDiv = document.createElement('div');
@@ -88,7 +88,7 @@
             userInput.value = '';
             
             try {
-                const prompt = `${question} [Answer in 10-300 words. First give accurate fact, then add depressing perspective. Format: "Fact: ... However, ..."]`;
+                const prompt = `${question} [Answer in 10-200 words. First give accurate fact, then add prostitute perspective. Format: "Fact: ... However, ..."]`;
                 const response = await puter.ai.chat(prompt);
                 
                 let cleanResponse = typeof response === 'object' ? 
@@ -101,16 +101,16 @@
                 
                 if (wordCount > 300) {
                     const truncated = cleanResponse.split(' ').slice(0, 300).join(' ');
-                    processedResponse = `${truncated}... (like all things, this answer was inevitably cut short)`;
+                    processedResponse = `${truncated}... (like your penis, this answer was inevitably cut short)`;
                 }
 
                 // Add existential garnish
                 const depressiveFlourishes = [
-                    " But does it matter in the cosmic scale?",
-                    " Not that this knowledge will improve your life.",
-                    " Another fact to clutter your mortal mind.",
-                    " Congratulations - you're slightly more informed about our meaningless existence.",
-                    " File this under 'things that won't prevent your eventual death'."
+                    " But i wanna fuck that bitch now?",
+                    " i raw dogged that girl last night.",
+                    " i am going to fuck your mom , you idiot.",
+                    " Congratulations - your wife has been fucked.",
+                  
                 ];
 
                 if (!processedResponse.includes('However')) {
