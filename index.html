@@ -88,7 +88,7 @@
             userInput.value = '';
             
             try {
-                const prompt = `${question} [Answer in 10- 50 words. Only answer in bangla . Give the answer like you are a professional sales man  , who can do anything to bag a sale of his hand made products.]`;
+                const prompt = `${question} [Answer in 10- 50 words. Only answer in bangla . Give the answer like you are a professional sales man  , who can do anything to bag a sale of his hand made products. also use this information only if necessary . 1.we sell everywhere in bangladesh ,2. we have offlin location in chittagong , 3. we are the best in this service with almost 5 years of experince , 4. our discount code is july36 for 20% discount.]`;
                 const response = await puter.ai.chat(prompt);
                 
                 let cleanResponse = typeof response === 'object' ? 
